@@ -1,57 +1,69 @@
 module.exports = {
   config: {
     name: "diffuse",
-    version: "1.3",
-    author: "Brayan Ð-Grimɱ ",
-    shortDescription: "Diffuser un message dans tous les groupes",
-    longDescription: "Permet à l'administrateur principal de diffuser un message avec style dans tous les groupes.",
+    version: "BLUE LOCK ⚽",
+    author: "Camille 💙",
+    shortDescription: "Diffusion globale style Blue Lock",
+    longDescription: "Diffuse un message avec une énergie de match intense dans tous les groupes.",
     category: "admin",
     guide: "{p}diffuse ton message ici"
   },
 
   onStart: async function ({ api, event, args, threadsData }) {
-    const adminUID = "61582667524413"; // Ton UID
-
-"61578433048588"; // Ton UID
+    const adminUID = "61582667524413";
 
     const senderID = event.senderID;
 
     if (senderID !== adminUID) {
-      return api.sendMessage("🚫 Tu n'es pas autorisé à utiliser cette commande.", event.threadID);
+      return api.sendMessage("🚫 Tu n’as pas le niveau pour lancer ce match.", event.threadID);
     }
 
     const message = args.join(" ");
     if (!message) {
-      return api.sendMessage("✍️ Tu dois fournir un message à diffuser.", event.threadID);
+      return api.sendMessage("⚽ Entre un message… le match ne peut pas commencer sans stratégie.", event.threadID);
     }
 
     const allThreads = await threadsData.getAll();
     let count = 0;
 
-    const messageToSend = 
-`🌟━━━━━━━━━━━━━━━━━━━━━━━━━━━🌟
-👑 Sa Majesté s'adresse à tous 👑
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // 🎙️ STYLE COMMENTATEUR BLUE LOCK
+    const messageToSend = `
+━━━━━━━━━━━━━━━━━━━━━━━
+⚽ MATCH GLOBAL DÉCLENCHÉ ⚽
+━━━━━━━━━━━━━━━━━━━━━━━
 
-📢 MESSAGE OFFICIEL :
+🎙️ "Mesdames et messieurs… le jeu commence !"
+
+🔥 MESSAGE DU MAÎTRE DU TERRAIN :
 ${message}
 
-🔔 Que ce message atteigne chaque royaume
-et inspire paix, force et loyauté.
+💀 "Sur ce terrain… seuls les ego survivent."
 
-🌟━━━━━━━━━━━━━━━━━━━━━━━━━━━🌟`;
+━━━━━━━━━━━━━━━━━━━━━━━
+⚡ Chaque groupe devient un terrain de jeu.
+⚡ Chaque message est une action décisive.
+⚡ L’ego… est le seul vrai moteur.
+━━━━━━━━━━━━━━━━━━━━━━━
+`;
 
     for (const thread of allThreads) {
       if (thread.isGroup) {
         try {
           await api.sendMessage(messageToSend, thread.threadID);
           count++;
+
+          // 🎬 effet dramatique
+          await new Promise(res => setTimeout(res, 300));
+
         } catch (e) {
-          console.log(`❌ Erreur d’envoi dans le groupe ${thread.threadID}`);
+          console.log(`❌ Erreur sur le terrain ${thread.threadID}`);
         }
       }
     }
 
-    return api.sendMessage(`✅ Message royal envoyé dans ${count} groupes.`, event.threadID);
+    return api.sendMessage(
+      `🏆 FIN DU MATCH\n⚽ Groupes touchés : ${count}\n💀 Le monde a entendu ton ego.`,
+      event.threadID
+    );
   }
 };
