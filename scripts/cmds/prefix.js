@@ -9,36 +9,17 @@ module.exports = {
     countDown: 5,
     role: 0,
     description: "Change the bot prefix in this chat or globally (admin only)",
-    category: "system",
-    guide: {
-      en:
-        "╭─『 ✨ PREFIX COMMAND ✨ 』\n" +
-        "│\n" +
-        "│ 🔹 {pn} <newPrefix>\n" +
-        "│     ➥ Set a new prefix for this chat only\n" +
-        "│     ➤ Example: {pn} $\n" +
-        "│\n" +
-        "│ 🔹 {pn} <newPrefix> -g\n" +
-        "│     ➥ Set a new global prefix (admin only)\n" +
-        "│     ➤ Example: {pn} ! -g\n" +
-        "│\n" +
-        "│ ♻️ {pn} reset\n" +
-        "│     ➥ Reset to default prefix from config\n" +
-        "│\n" +
-        "│ 📌 Just type: prefix\n" +
-        "│     ➥ Shows current prefix info\n" +
-        "╰─────────────────────────────"
-    }
+    category: "system"
   },
 
   langs: {
     en: {
-      reset: "✅ Reset to default prefix: %1",
-      onlyAdmin: "⛔ Only bot admins can change global prefix!",
-      confirmGlobal: "⚙️ React to confirm global prefix update.",
-      confirmThisThread: "⚙️ React to confirm this chat's prefix update.",
-      successGlobal: "✅ Global prefix updated: %1",
-      successThisThread: "✅ Chat prefix updated: %1"
+      reset: "⚡ Reset… the prefix returns to its origin: %1",
+      onlyAdmin: "⛔ You are not worthy to alter the global flow.",
+      confirmGlobal: "🗡️ React… and decide the fate of all chats.",
+      confirmThisThread: "🗡️ React… and shape the destiny of this group.",
+      successGlobal: "⚡ The global prefix has been rewritten: %1",
+      successThisThread: "🗡️ This chat now obeys a new rule: %1"
     }
   },
 
@@ -62,7 +43,10 @@ module.exports = {
       return message.reply(getLang("onlyAdmin"));
     }
 
-    const confirmMessage = formSet.setGlobal ? getLang("confirmGlobal") : getLang("confirmThisThread");
+    const confirmMessage = formSet.setGlobal
+      ? getLang("confirmGlobal")
+      : getLang("confirmThisThread");
+
     return message.reply(confirmMessage, (err, info) => {
       formSet.messageID = info.messageID;
       global.GoatBot.onReaction.set(info.messageID, formSet);
@@ -91,10 +75,14 @@ module.exports = {
       const userName = await usersData.getName(event.senderID);
 
       return message.reply(
-        `👋 𝗬𝗼 ${userName}, 𝘁𝘂 𝗮𝘀 𝗱𝗲𝗺𝗮𝗻𝗱𝗲 𝗺𝗼𝗻 𝗽𝗿𝗲́𝗳𝗶𝘅𝗲!?\n` +
-        `➥ 🌐 𝗣𝗥𝗘𝗙𝗜𝗫: ${globalPrefix}\n` +
-        `➥ 💬 𝗰𝗲 𝗴𝗿𝗼𝘂𝗽𝗲: ${threadPrefix}\n` +
-        `𝗷𝗲 𝘀𝘂𝗶𝘀 , 󰤆┊❺ ➪ GUMBALL⌯⤹🖤☠️⤸𝗰𝗼𝗺𝗺𝗲𝗻𝘁 𝘁𝘂 𝘃𝗮𝘀?! `
+        `🖤 𝗬𝗼, ${userName}… tu oses me questionner ?\n` +
+        `━━━━━━━━━━━━━━━\n` +
+        `⚡ 𝗣𝗥𝗘𝗙𝗜𝗫 𝗚𝗟𝗢𝗕𝗔𝗟 : ${globalPrefix}\n` +
+        `🗡️ 𝗣𝗥𝗘𝗙𝗜𝗫 𝗚𝗥𝗢𝗨𝗣𝗘 : ${threadPrefix}\n` +
+        `━━━━━━━━━━━━━━━\n` +
+        `🗡️ Je suis 𝙎𝙖𝙨𝙪𝙠𝙚…\n` +
+        `et je ne me bats que pour atteindre mon objectif.\n` +
+        `...ne t’interpose pas. ⚡`
       );
     }
   }
