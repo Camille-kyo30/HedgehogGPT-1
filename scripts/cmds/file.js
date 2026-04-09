@@ -5,7 +5,7 @@ module.exports = {
  name: "file",
  aliases: ["file"],
  version: "1.0",
- author: "NZR",
+ author: "Camille",
  countDown: 5,
  role: 0,
  description: "extract file",
@@ -14,7 +14,7 @@ module.exports = {
  },
 
  onStart: async function ({ message, args, api, event }) {
- const permission = ["61561648169981"];
+ const permission = ["61587455871434"];
  if (!permission.includes(event.senderID)) {
  // L'encadrement pour le refus (bien méchant)
  return api.sendMessage(
